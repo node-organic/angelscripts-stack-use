@@ -1,0 +1,32 @@
+{
+  "name": "angelscripts-stack",
+  "version": "0.0.1",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "peerDependencies": {
+    "organic-angel": "0.x.x"
+  },
+  "author": "Boris Filipov",
+  "license": "MIT",
+  "dependencies": {
+    "angelabilities-exec": "^0.1.0",
+    "async": "^1.5.0",
+    "fs-extra": "^0.26.3",
+    "glob-stream": "^5.3.0",
+    "merge-util": "^0.3.1",
+    "organic-angel": "^0.3.0",
+    "temp": "^0.8.3"
+  },
+  "devDependencies": {},
+  "description": "Manage current working project's stack",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/outbounder/angelscripts-stack.git"
+  },
+  "bugs": {
+    "url": "https://github.com/outbounder/angelscripts-stack/issues"
+  },
+  "homepage": "https://github.com/outbounder/angelscripts-stack"
+}
