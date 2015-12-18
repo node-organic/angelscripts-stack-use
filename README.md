@@ -1,4 +1,4 @@
-# angel-stack-use v0.0.1
+# angel-stack-use v0.0.2
 
 Manage current working project's stack
 

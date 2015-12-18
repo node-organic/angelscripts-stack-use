@@ -123,22 +123,22 @@ module.exports = function(angel){
       root: ''
     }
     var tasks = [
-     // clone to a temporary folder
-     function(next){
-       console.info("cloning upstream source ...")
-       temp.mkdir('upstream', function(err, dirPath) {
-         if(err) return next(err)
-         options.root = dirPath
-         angel.sh([
-           "git clone "+ angel.cmdData.source + " " + options.root,
-           "cd " + options.root,
-           "git checkout " + angel.cmdData.branch
-         ].join(" && "), next)
-       })
-     },
-     // apply upgrade
-     applyStack(options)
-   ]
+      // clone to a temporary folder
+      function(next){
+        console.info("cloning upstream source ...")
+        temp.mkdir('upstream', function(err, dirPath) {
+          if(err) return next(err)
+          options.root = path.join(dirPath, angel.cmdData.updatePath)
+          angel.sh([
+            "git clone "+ angel.cmdData.source + " " + dirPath,
+            "cd " + dirPath,
+            "git checkout " + angel.cmdData.branch
+          ].join(" && "), next)
+        })
+      },
+      // apply upgrade
+      applyStack(options)
+    ]
 
    async.eachSeries(tasks, function(task, next){
      task(next)
