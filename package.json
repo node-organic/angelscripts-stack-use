@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "release-patch": "npm version patch && npm publish && git push --tags && git push"
+    "release-patch": "npm version patch && npm publish && git push --tags && git push origin master"
   },
   "peerDependencies": {
     "organic-angel": "0.x.x"
