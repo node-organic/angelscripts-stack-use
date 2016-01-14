@@ -4,6 +4,7 @@ var fs = require("fs")
 var glob = require("glob-stream")
 var fse = require('fs-extra')
 var async = require('async')
+var exec = require('child_process').exec
 
 var temp = require('temp')
 // Automatically track and cleanup files at exit
@@ -101,6 +102,10 @@ var applyStack = function (options) {
       .on("error", console.error)
       .on('end', function () {
         if (filesToProcess === 0) console.info('no files to process in', templatesRoot+"/**/*.*")
+        var npminstall = exec('npm install')
+        npminstall.stdout.pipe(process.stdout)
+        npminstall.stderr.pipe(process.stderr)
+        npminstall.on('exit', process.exit)
       })
   }
 }

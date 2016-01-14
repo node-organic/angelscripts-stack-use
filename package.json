@@ -3,7 +3,8 @@
   "version": "0.0.2",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "release-patch": "npm version patch && npm publish && git push --tags && git push"
   },
   "peerDependencies": {
     "organic-angel": "0.x.x"
