@@ -1,6 +1,6 @@
 {
   "name": "angelscripts-stack-use",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -18,7 +18,10 @@
     "glob-stream": "^5.3.0",
     "merge-util": "^0.3.1",
     "organic-angel": "^0.3.0",
-    "temp": "^0.8.3"
+    "temp": "^0.8.3",
+    "array-uniq": "^1.0.2",
+    "glob-stream": "^5.3.0",
+    "inquirer": "^0.11.0"
   },
   "devDependencies": {},
   "description": "Manage current working project's stack",
