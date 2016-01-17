@@ -6,15 +6,15 @@ Manage current working project's stack
 
 1. install script to existing project
 
-```
-$ npm install angelscripts-stack-use --save-dev
-```
+  ```
+  $ npm install angelscripts-stack-use --save-dev
+  ```
 
 2. execute the script via `organic-angel`
 
-```
-$ angel stack use {remote} {updatePath} {branch}
-```
+  ```
+  $ angel stack use {remote} {updatePath} {branch}
+  ```
 
 ___arguments___
 
