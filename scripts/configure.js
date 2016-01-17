@@ -1,5 +1,5 @@
 module.exports = function (angel) {
-  angel.on('configure', function () {
+  angel.on('stack configure', function () {
     var fs = require('fs')
     var path = require('path')
     var glob = require('glob-stream')
