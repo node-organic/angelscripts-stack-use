@@ -191,10 +191,19 @@ module.exports = function (angel) {
   angel.on("stack use :input", function (angel) {
     if (angel.cmdData.input.indexOf('git') > -1)
       return angel.do('stack use ' + angel.cmdData.input + ' ./ master')
-    var options = {
-      root: path.join(process.cwd(), angel.cmdData.input)
-    }
-    applyStack(options)(handleResult)
+    angel.do('stack list.json', function (err, upgrades) {
+      if (err) return
+      var foundUpgradePath
+      for (var i = 0; i < upgrades.length; i++) {
+        if (upgrades[i].name === angel.cmdData.input) {
+          foundUpgradePath = path.dirname(upgrades[i].fullPath)
+        }
+      }
+      var options = {
+        root: (foundUpgradePath || path.join(process.cwd(), angel.cmdData.input))
+      }
+      applyStack(options)(handleResult)
+    })
   })
   angel.on("stack use :source :updatePath", function (angel) {
     angel.do('stack use ' + angel.cmdData.source + ' ' + angel.cmdData.updatePath + ' master')
