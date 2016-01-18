@@ -118,16 +118,17 @@ var applyStack = function (options) {
     }
 
     if (upgradeMetaInfo.dependencies) {
-      var hasMissingDependencies = false
       var appliedUpgrades = require(path.join(process.cwd(), "package.json"))["stack-upgrades"]
+      var missingDependencies = []
       for (var key in upgradeMetaInfo.dependencies) {
         if (!appliedUpgrades[key]) {
           console.error('upgrade dependency not found:', key)
           hasMissingDependencies = true
+          missingDependencies.push(key)
         }
       }
-      if (hasMissingDependencies) {
-        return next && next(new Error('upgrade dependency not found'))
+      if (missingDependencies.length) {
+        return next && next(new Error('missing dependencies: ' + missingDependencies.join(',')))
       }
     }
 
@@ -143,9 +144,7 @@ var applyStack = function (options) {
       })
     }
 
-    console.info("apply upgrade", upgradeRoot.replace(process.cwd(), ''), "...")
-    mergeStack(upgradeRoot, function (err) {
-      if (err) return next(err)
+    var applyPeerUpgrades = function (done) {
       if (upgradeMetaInfo.peerUpgrades) {
         var appliedUpgrades = require(path.join(process.cwd(), "package.json"))["stack-upgrades"]
         var tasks = []
@@ -160,12 +159,21 @@ var applyStack = function (options) {
           console.info("apply peer upgrade", taskInfo.upgradeRoot.replace(process.cwd(), ''), "...")
           mergeStack(taskInfo.upgradeRoot, nextTask)
         }, function (err) {
-          if (err) return next(err)
-          storeUpgrade(next)
+          if (err) return done(err)
+          if (tasks.length === 0) {
+            console.warn('WARNING:', upgradeMetaInfo.name, 'has peer upgrades but none has been applied. Consider using', upgradeMetaInfo.peerUpgrades)
+          }
+          storeUpgrade(done)
         })
       } else {
-        storeUpgrade(next)
+        storeUpgrade(done)
       }
+    }
+
+    console.info("apply upgrade", upgradeRoot.replace(process.cwd(), ''), "...")
+    mergeStack(upgradeRoot, function (err) {
+      if (err) return next(err)
+      applyPeerUpgrades(next)
     })
   }
 }
