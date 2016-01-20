@@ -1,4 +1,4 @@
-# angel-stack-use v0.1.3
+# angel-stack-use v0.1.4
 
 Manage current working project's stack
 
@@ -36,7 +36,7 @@ ___arguments___
 3. ___apply stack upgrade___ - copy recursively all files from `stackRootFolder + upgrade.main` where:
   - `.json` files are deep merged
   - `.gitignore` files are rewritten only with the unique lines
-  - any other file is overriden
+  - any other file is overridden
 4. ___apply stack upgrade peers___ - use the same method as within step 3) for every `upgrade.peerUpgrades` match towards `stack-upgrades` hash from `package.json`
 5. store within `package.json`'s `stack-upgrades` hash the applied upgrade `{name: version}`
 
