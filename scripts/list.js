@@ -1,16 +1,15 @@
-var glob = require("glob-stream")
-var path = require("path")
+var glob = require('glob-stream')
 
 module.exports = function (angel) {
   var findUpgrades = function (done) {
     var upgrades = []
-    glob.create(process.cwd()+"/**/*/upgrade.json", {dot: true, ignore: ["/.git"], follow: true})
-      .on("data", function (file) {
+    glob.create(process.cwd() + '/**/*/upgrade.json', {dot: true, ignore: ['/.git'], follow: true})
+      .on('data', function (file) {
         var upgrade = require(file.path)
         upgrade.fullPath = file.path
         upgrades.push(upgrade)
       })
-      .on("error", function (err) {
+      .on('error', function (err) {
         console.error(err)
         done(err)
       })
@@ -19,16 +18,16 @@ module.exports = function (angel) {
       })
   }
   angel.on('stack list', function (angel) {
-    findUpgrades (function (err, upgrades) {
+    findUpgrades(function (err, upgrades) {
       if (err) return
       upgrades.forEach(function (u) {
-        console.log("+ " + u.name + "@" + u.version)
+        console.log('+ ' + u.name + '@' + u.version)
         if (u.dependencies) {
-          for(key in u.dependencies) {
-            console.log('|- ' + key + "@" + u.dependencies[key])
+          for (var key in u.dependencies) {
+            console.log('|- ' + key + '@' + u.dependencies[key])
           }
         }
-        console.log("")
+        console.log('')
       })
     })
   })
