@@ -95,12 +95,12 @@ var mergeStack = function (templatesRoot, done) {
     }
   }
 
-  glob.create(templatesRoot+"/**/*.*", {dot: true, ignore: ["/.git", "/upgrade.json"]})
+  glob.create(templatesRoot+"/**/*", {dot: true, ignore: ["/.git", "/upgrade.json"]})
     .on("data", deepMergeFile(templatesRoot, root, onFileStart, onFileDone))
     .on("error", console.error)
     .on('end', function () {
       if (filesToProcess === 0) {
-        console.info('no files to process in', templatesRoot+"/**/*.*")
+        console.info('no files to process in', templatesRoot+"/**/*")
         done(new Error('upgrade merge failed, no files were found'))
       }
     })
